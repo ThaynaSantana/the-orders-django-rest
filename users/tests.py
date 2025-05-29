@@ -1,3 +1,9 @@
-from django.test import TestCase
+import pytest
 
-# Create your tests here.
+from users.models import User
+
+
+@pytest.mark.django_db
+def test_user_creation():
+    user = User.objects.create(username="testuser")
+    assert user.username == "testuser"

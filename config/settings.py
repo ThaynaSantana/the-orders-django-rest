@@ -8,19 +8,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-k(-f$pswp+f%73mdhhbc4w2yaiq#3*pxi=yu7(u=tum22yw+il"
+SECRET_KEY = "django-insecure-k(" "-f$pswp+f%73mdhhbc4w2yaiq#3*pxi=yu7(u=tum22yw+il"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "users.User"
+
 RQ_QUEUES = {
-    'default': {
-        'HOST': 'redis',
-        'PORT': 6379,
-        'DB': 0,
-        'DEFAULT_TIMEOUT': 360,
+    "default": {
+        "HOST": "localhost",
+        "PORT": 6379,
+        "DB": 0,
+        "DEFAULT_TIMEOUT": 360,
     },
 }
 
@@ -33,7 +35,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django_rq'
+    "django_rq",
+    "rest_framework",
+    "users",
+    "tasks",
+    "core",
+    "orders",
 ]
 
 MIDDLEWARE = [
@@ -44,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "core.middlewares.RequestLogMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
